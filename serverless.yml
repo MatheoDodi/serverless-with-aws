@@ -10,10 +10,23 @@ provider:
 plugins:
   - serverless-offline
 
-functions:  
+functions:
   todos:
     handler: src/api/todos.handler
-    
+    events:
+      - http:
+          path: /todo/{id}
+          method: GET
+          request:
+            parameters:
+              id: true
+
   todo:
     handler: src/api/todo.handler
-    
+    events:
+      - http: GET /todos
+
+  api:
+    handler: src/api/api.handler
+    events:
+      - http: GET /api
